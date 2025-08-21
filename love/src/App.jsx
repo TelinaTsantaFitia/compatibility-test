@@ -1,35 +1,47 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState } from 'react';
+import './App.css';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [name1, setName1] = useState('');
+  const [name2, setName2] = useState('');
+  const [result, setResult] = useState(null);
+
+  const calculateCompatibility = () => {
+    if (name1.trim() && name2.trim()) {
+      const score = Math.floor(Math.random() * 101);
+      setResult(`Compatibilité entre ${name1} et ${name2} : ${score}%`);
+    } else {
+      setResult('Veuillez entrer les deux noms.');
+    }
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="container">
+      <h1>Test de Compatibilité Amoureuse</h1>
+      <div className="input-group">
+        <input
+          type="text"
+          placeholder="Nom 1"
+          value={name1}
+          onChange={(e) => setName1(e.target.value)}
+          className="input"
+        />
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
+      <div className="input-group">
+        <input
+          type="text"
+          placeholder="Nom 2"
+          value={name2}
+          onChange={(e) => setName2(e.target.value)}
+          className="input"
+        />
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+      <button onClick={calculateCompatibility} className="button">
+        Calculer
+      </button>
+      {result && <p className="result">{result}</p>}
+    </div>
+  );
 }
 
-export default App
+export default App;
